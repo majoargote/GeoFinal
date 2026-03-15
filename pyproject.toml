@@ -1,0 +1,30 @@
+[project]
+name = "geofinal"
+version = "0.1.0"
+description = "Geospatial analysis: data center siting vs. environmental stress in Spain"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "geopandas>=0.14",
+    "pandas>=2.0",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "folium>=0.15",
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
+    "geopy>=2.4",
+    "xarray>=2024.1",
+    "rioxarray>=0.15",
+    "scikit-learn>=1.4",
+    "scipy>=1.12",
+    "seaborn>=0.13",
+    "plotly>=5.18",
+    "contextily>=1.5",
+    "mapclassify>=2.6",
+    "jupyter>=1.0",
+    "ipykernel>=6.0",
+    "lxml>=4.9",
+    "pyogrio>=0.7",
+    "netCDF4>=1.6",
+    "tqdm>=4.66",
+]
