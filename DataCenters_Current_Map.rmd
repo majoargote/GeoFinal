@@ -107,6 +107,9 @@ madrid_nuts3 <- nuts3 %>% filter(NUTS_ID == "ES300")
 
 # filter data centers within the Madrid limits
 
+Pulling the 52 provinces across Spain. Provinces are the finest spatial unit with consistent economic and environmental statistics, 
+making them the most approapriate unit for this analysis.
+
 ```{r}
 madrid_limits <- st_bbox(madrid_nuts3)
 # Layer 0: zoom on nuts3 comunidad de Madrid
