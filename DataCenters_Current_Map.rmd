@@ -29,8 +29,41 @@ data_centers <- read_excel("data/spain_datacenters_v2.xlsx")
 ``` {r}
 
 spain <- ne_countries(scale = "medium", country = "Spain", returnclass = "sf")
+
+provinces_raw <- gisco_get_nuts(resolution = "03", nuts_level = 3, year = "2024") %>%
+  dplyr::filter(CNTR_CODE == "ES", LEVL_CODE == 3)
+
+provinces_raw %>%
+  distinct(NUTS_ID, NAME_LATN) %>%
+  arrange(NUTS_ID)
+
+
+
+
 ```
 
+# Create map with provinces, exclude the Canary Islands for better visualization of mainland data centers
+
+``` {r}
+spain_provinces_map <- ggplot() +
+  #Layer 0: spain map
+  geom_sf(data = spain, fill = "grey95", color = "grey60") +
+  # add boundaries for provinces (excluding canary islands)
+  geom_sf(data = provinces_raw, fill = NA, color = "grey80", size = 0.3) +
+  theme_minimal(base_size = 11) +
+  coord_sf(xlim = c(-10, 5), ylim = c(36, 44)) +
+  # add title and theme
+  labs(title = "Spain NUTS 3 Provinces",
+    subtitle = paste0(n_distinct(provinces_raw$NAME_LATN), " Spanish Provinces (Canary Islands not pictured)"))+
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "right",
+    plot.title = element_text(face = "bold"))
+spain_provinces_map
+```
+
+``` {r}
+ggsave("outputs/spain_provinces_map.jpg", width = 10)
+```
 # Get datacenter coordinates from data
 ```{r}
 # remove centers where we couldn't get lat/long
@@ -81,7 +114,7 @@ data_center_map <- ggplot() +
       "Unknown"           = "black"),
     name = "Facility Size"
   ) +
-  coord_sf(xlim = c(-10, 5), ylim = c(27, 44)) +
+  coord_sf(xlim = c(-10, 5), ylim = c(36, 44)) +
   labs(title = "Data Centers in Spain",
     subtitle = paste0(nrow(data_centers), " facilities across ", 
     n_distinct(data_centers$City), " cities")) +
