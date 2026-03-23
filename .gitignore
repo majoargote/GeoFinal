@@ -1,2 +1,3 @@
-ModelA/data/
+ModelA/ModelA/data/raw/*
+!ModelA/data/raw/.gitkeep
 .DS_Store
